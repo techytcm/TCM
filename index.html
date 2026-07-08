@@ -19,13 +19,13 @@
     --text: #f2f2f7;
     --text-2: #a0a0b0;
     --text-3: #5c5c6e;
-    --accent: #ff6b1a;
-    --accent-2: #ff8c42;
-    --accent-3: #ffb380;
-    --accent-glow: rgba(255, 107, 26, 0.45);
+    --accent: #ff3333; /* Deep Red */
+    --accent-2: #ff6666; /* Lighter Red */
+    --accent-3: #ff9999;
+    --accent-glow: rgba(255, 51, 51, 0.45);
     --mint: #00d9a3;
     --mint-glow: rgba(0, 217, 163, 0.3);
-    --amber: #ffb800;
+    --amber: #ff5050;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -82,8 +82,8 @@
   .bg-grid {
     position: fixed; inset: 0; z-index: 0;
     background-image:
-      linear-gradient(rgba(255,107,26,0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,107,26,0.025) 1px, transparent 1px);
+      linear-gradient(rgba(255,51,51,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,51,51,0.025) 1px, transparent 1px);
     background-size: 60px 60px;
     mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
     -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
@@ -113,7 +113,7 @@
   .nav-brand span { color: var(--accent); }
   .nav-link { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--text-2); padding: 0.5rem 0.9rem; border-radius: 100px; transition: all 0.3s; text-decoration: none; position: relative; white-space: nowrap; }
   .nav-link:hover { color: var(--text); }
-  .nav-link.active { color: var(--accent); background: rgba(255,107,26,0.08); }
+  .nav-link.active { color: var(--accent); background: rgba(255,51,51,0.08); }
   .nav-cta { background: var(--accent); color: #000; font-weight: 600; padding: 0.5rem 1.1rem; border-radius: 100px; font-size: 0.78rem; font-family: 'JetBrains Mono', monospace; text-decoration: none; transition: all 0.3s; white-space: nowrap; }
   .nav-cta:hover { background: var(--accent-2); transform: translateY(-1px); }
 
@@ -129,7 +129,6 @@
 
   .section-label { display: inline-flex; align-items: center; gap: 0.6rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-3); margin-bottom: 1.5rem; }
   .section-label::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
-  .section-label .num { color: var(--accent); }
 
   .section-title { font-family: 'Sora', sans-serif; font-weight: 200; font-size: clamp(1.8rem, 5vw, 3.5rem); line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
   .section-title strong { font-weight: 700; color: var(--accent); }
@@ -158,7 +157,7 @@
 
   .portrait-wrap { position: relative; width: 100%; max-width: 380px; aspect-ratio: 1; margin: 2rem auto 0; }
   @media (min-width: 1024px) { .portrait-wrap { margin: 0; max-width: 440px; } }
-  .portrait-frame { position: relative; width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: radial-gradient(circle at center, #0a0a12 0%, #050508 100%); border: 1px solid var(--border-bright); box-shadow: 0 0 80px -20px var(--accent-glow), inset 0 0 60px -20px rgba(255,107,26,0.1); }
+  .portrait-frame { position: relative; width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: radial-gradient(circle at center, #0a0a12 0%, #050508 100%); border: 1px solid var(--border-bright); box-shadow: 0 0 80px -20px var(--accent-glow), inset 0 0 60px -20px rgba(255,51,51,0.1); }
   .portrait-canvas { width: 100%; height: 100%; display: block; }
   .portrait-ring { position: absolute; inset: -15px; pointer-events: none; }
   .portrait-ring svg { width: 100%; height: 100%; animation: rotate 30s linear infinite; }
@@ -199,16 +198,13 @@
   .info-cell .value { color: var(--text); font-size: 0.95rem; font-weight: 500; }
   .info-cell .value .accent { color: var(--accent); }
 
-  
-
-  .terminal { background: #0a0a12; border: 1px solid var(--border-bright); border-radius: 16px; overflow: hidden; box-shadow: 0 30px 80px -30px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,107,26,0.05); }
+  .terminal { background: #0a0a12; border: 1px solid var(--border-bright); border-radius: 16px; overflow: hidden; box-shadow: 0 30px 80px -30px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,51,51,0.05); }
   .terminal-header { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1.25rem; background: var(--elevated); border-bottom: 1px solid var(--border); }
   .terminal-dots { display: flex; gap: 0.4rem; }
   .terminal-dot { width: 11px; height: 11px; border-radius: 50%; }
   .terminal-dot.r { background: #ff5f57; } .terminal-dot.y { background: #febc2e; } .terminal-dot.g { background: #28c840; }
   .terminal-title { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-3); margin-left: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-  /* Fixed height terminal to prevent layout shift */
   .terminal-body { padding: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.8; height: 350px; overflow: hidden; position: relative; }
   @media (min-width: 768px) { .terminal-body { font-size: 0.85rem; height: 400px; } }
 
@@ -228,6 +224,7 @@
   .metric-value .unit { font-size: 1rem; color: var(--text-2); font-weight: 400; }
   .metric-delta { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; display: flex; align-items: center; gap: 0.4rem; }
   .metric-delta.up, .metric-delta.down { color: var(--mint); }
+  .metric-delta.neutral { color: var(--text-3); }
   .metric-spark { position: absolute; bottom: 0; right: 0; width: 80px; height: 40px; opacity: 0.4; }
 
   .certs-inner { max-width: 1200px; margin: 0 auto; }
@@ -241,12 +238,11 @@
   @media (min-width: 1024px) { .certs-grid { grid-template-columns: repeat(3, 1fr); } }
 
   .cert-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem; display: flex; align-items: center; gap: 1rem; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; }
-  .cert-card::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,107,26,0.08), transparent 50%); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+  .cert-card::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,51,51,0.08), transparent 50%); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
   .cert-card:hover { border-color: var(--border-bright); transform: translateY(-3px); }
   .cert-card:hover::after { opacity: 1; }
 
-  /* Refined Certificate Badge */
-  .cert-badge { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: linear-gradient(135deg, rgba(255,107,26,0.12), rgba(255,107,26,0.02)); border: 1px solid rgba(255,107,26,0.2); color: var(--accent); position: relative; }
+  .cert-badge { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: linear-gradient(135deg, rgba(255,51,51,0.12), rgba(255,51,51,0.02)); border: 1px solid rgba(255,51,51,0.2); color: var(--accent); position: relative; }
   .cert-badge.associate { background: linear-gradient(135deg, rgba(0,217,163,0.12), rgba(0,217,163,0.02)); border-color: rgba(0,217,163,0.3); color: var(--mint); }
   .cert-badge svg { width: 24px; height: 24px; }
   .cert-badge::after { content: ''; position: absolute; bottom: -2px; right: -2px; width: 10px; height: 10px; background: var(--bg); border-radius: 50%; border: 2px solid currentColor; box-shadow: 0 0 5px currentColor; }
@@ -255,29 +251,10 @@
   .cert-name { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.2rem; line-height: 1.3; }
   .cert-issuer { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-3); letter-spacing: 0.05em; }
 
-  .roadmap-inner { max-width: 1200px; margin: 0 auto; }
-  .roadmap-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
-  @media (min-width: 900px) { .roadmap-grid { grid-template-columns: 1fr 1.3fr; gap: 3rem; } }
-
-  .stack-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; position: sticky; top: 5rem; align-self: start; }
-  .stack-card h3 { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-3); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; }
-  .stack-card .sub { font-family: 'Sora', sans-serif; font-weight: 600; font-size: 1.3rem; margin-bottom: 1.5rem; color: var(--text); }
-  .stack-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-  .stack-tag { padding: 0.45rem 0.85rem; background: rgba(255,107,26,0.06); border: 1px solid rgba(255,107,26,0.15); border-radius: 100px; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--accent-2); transition: all 0.3s; }
-  .stack-tag:hover { background: rgba(255,107,26,0.12); border-color: var(--accent); transform: translateY(-1px); }
-
-  .pipeline-section { margin-bottom: 2.5rem; }
-  .pipeline-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
-  .pipeline-num { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--accent); letter-spacing: 0.15em; }
-  .pipeline-title { font-family: 'Sora', sans-serif; font-weight: 600; font-size: 1.1rem; color: var(--text); }
-  .pipeline-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--border-bright), transparent); min-width: 50px; }
-
-  .pipeline-items { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.75rem; }
-  .pipeline-item { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; transition: all 0.3s; position: relative; }
-  .pipeline-item:hover { border-color: rgba(255,107,26,0.3); background: var(--elevated); }
-  .pipeline-item .name { font-size: 0.85rem; font-weight: 500; color: var(--text); margin-bottom: 0.5rem; }
-  .pipeline-item .progress { height: 3px; background: var(--border); border-radius: 100px; overflow: hidden; }
-  .pipeline-item .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 100px; width: 0; transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1); }
+  /* New Tech Stats Section Styles */
+  .stats-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; max-width: 1200px; margin: 0 auto; }
+  @media (min-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
 
   .contact-inner { max-width: 1200px; margin: 0 auto; text-align: center; }
   .contact-title { font-family: 'Sora', sans-serif; font-weight: 200; font-size: clamp(2rem, 7vw, 5.5rem); line-height: 1; letter-spacing: -0.04em; margin-bottom: 2rem; }
@@ -304,6 +281,22 @@
   .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); transition-delay: var(--delay, 0s); }
   .reveal-right.in-view { opacity: 1; transform: translateX(0); }
 
+  /* MOBILE FIX: Switch horizontal reveals to vertical to prevent overlap */
+  @media (max-width: 899px) {
+    .reveal-left, .reveal-right {
+      transform: translateY(50px);
+    }
+    .reveal-left[data-pos="below"], .reveal-right[data-pos="below"] {
+      transform: translateY(50px);
+    }
+    .reveal-left[data-pos="above"], .reveal-right[data-pos="above"] {
+      transform: translateY(-50px);
+    }
+    .reveal-left.in-view, .reveal-right.in-view {
+      transform: translateY(0) !important;
+    }
+  }
+
   .marquee { overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 1.5rem 0; background: var(--bg-2); position: relative; z-index: 2; }
   .marquee-track { display: flex; gap: 4rem; animation: marquee 40s linear infinite; white-space: nowrap; width: max-content; }
   .marquee-item { font-family: 'Sora', sans-serif; font-weight: 200; font-size: 1.5rem; color: var(--text-3); display: flex; align-items: center; gap: 4rem; }
@@ -329,7 +322,7 @@
   <div class="nav-brand">techy<span>tcm</span></div>
   <a href="#about" class="nav-link" data-section="about">About</a>
   <a href="#proof" class="nav-link" data-section="proof">Proof</a>
-  <a href="#trajectory" class="nav-link" data-section="trajectory">Roadmap</a>
+  <a href="#stats" class="nav-link" data-section="stats">Stats</a>
   <a href="#contact" class="nav-cta">Say Hello</a>
 </nav>
 
@@ -346,6 +339,7 @@
       </div>
 
       <div class="mt-6 reveal" style="--delay: 0.1s">
+        <span class="eyebrow">Research-Oriented Learner</span>
       </div>
 
       <h1 class="hero-name mt-3 reveal" style="--delay: 0.15s">
@@ -356,8 +350,6 @@
 
       <div class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 reveal" style="--delay: 0.3s">
         <span class="role-tag">Software Engineer</span>
-        <span class="role-tag slash">/</span>
-        <span class="role-tag">AI Engineer</span>
       </div>
 
       <p class="mt-6 max-w-xl text-base md:text-lg text-[var(--text-2)] leading-relaxed reveal" style="--delay: 0.4s">
@@ -391,14 +383,14 @@
           <svg viewBox="0 0 400 400">
             <defs>
               <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#ff6b1a" stop-opacity="0"/>
-                <stop offset="50%" stop-color="#ff6b1a" stop-opacity="1"/>
-                <stop offset="100%" stop-color="#ff6b1a" stop-opacity="0"/>
+                <stop offset="0%" stop-color="#ff3333" stop-opacity="0"/>
+                <stop offset="50%" stop-color="#ff3333" stop-opacity="1"/>
+                <stop offset="100%" stop-color="#ff3333" stop-opacity="0"/>
               </linearGradient>
             </defs>
             <circle cx="200" cy="200" r="195" fill="none" stroke="url(#ringGrad)" stroke-width="1.5" stroke-dasharray="40 60"/>
-            <circle cx="200" cy="200" r="195" fill="none" stroke="rgba(255,107,26,0.1)" stroke-width="1"/>
-            <g stroke="rgba(255,107,26,0.3)" stroke-width="1">
+            <circle cx="200" cy="200" r="195" fill="none" stroke="rgba(255,51,51,0.1)" stroke-width="1"/>
+            <g stroke="rgba(255,51,51,0.3)" stroke-width="1">
               <line x1="200" y1="5" x2="200" y2="15"/>
               <line x1="200" y1="385" x2="200" y2="395"/>
               <line x1="5" y1="200" x2="15" y2="200"/>
@@ -454,6 +446,7 @@
 <section class="about" id="about">
   <div class="about-grid">
     <div>
+      <div class="section-label reveal">About</div>
       <h2 class="section-title reveal" style="--delay: 0.1s">
         Systems thinking,<br><strong>shipped in code.</strong>
       </h2>
@@ -510,6 +503,7 @@
 <!-- ============ CERTIFICATIONS ============ -->
 <section class="certs" id="proof">
   <div class="certs-inner">
+    <div class="section-label reveal">Proof</div>
     <h2 class="section-title reveal" style="--delay: 0.1s">
       Certification <strong>Hall</strong>
     </h2>
@@ -536,83 +530,37 @@
   </div>
 </section>
 
-<!-- ============ ROADMAP ============ -->
-<section class="roadmap" id="trajectory">
-  <div class="roadmap-inner">
-
+<!-- ============ TECH STATS ============ -->
+<section class="stats" id="stats">
+  <div class="max-w-7xl mx-auto w-full">
+    <div class="section-label reveal">Stats</div>
     <h2 class="section-title reveal" style="--delay: 0.1s">
-      AI Engineer <strong>Roadmap</strong>
+      Development <strong>Metrics</strong>
     </h2>
     <p class="text-[var(--text-2)] max-w-2xl mb-12 reveal" style="--delay: 0.2s">
-      Where I already ship, and where I'm deliberately headed next.
+      A quantitative look at my engineering output — from commits and deployments to production-ready code.
     </p>
 
-    <div class="roadmap-grid">
-      <div class="stack-card reveal-left" style="--delay: 0.2s">
-        <h3>Current Stack</h3>
-        <div class="sub">Shipping with today</div>
-        <div class="stack-tags">
-          <span class="stack-tag">Python</span>
-          <span class="stack-tag">Statistics</span>
-          <span class="stack-tag">SQL</span>
-          <span class="stack-tag">Data Analysis</span>
-          <span class="stack-tag">PostgreSQL</span>
-          <span class="stack-tag">FastAPI</span>
-          <span class="stack-tag">Git</span>
-          <span class="stack-tag">DSA</span>
-          <span class="stack-tag">OOP & Patterns</span>
-          <span class="stack-tag">REST APIs</span>
-        </div>
+    <div class="stats-grid">
+      <div class="metric-card reveal" style="--delay: 0.2s">
+        <div class="metric-label">Total Commits</div>
+        <div class="metric-value">1.2<span class="unit">K+</span></div>
+        <div class="metric-delta up">▲ Across 15+ repos</div>
       </div>
-
-      <div>
-        <div class="pipeline-section reveal-right" style="--delay: 0.3s">
-          <div class="pipeline-header">
-            <span class="pipeline-num">01 · IN PIPELINE</span>
-            <span class="pipeline-title">Platform & Infrastructure</span>
-            <span class="pipeline-line"></span>
-          </div>
-          <div class="pipeline-items">
-            <div class="pipeline-item"><div class="name">System Design</div><div class="progress"><div class="progress-fill" data-pct="65"></div></div></div>
-            <div class="pipeline-item"><div class="name">Docker</div><div class="progress"><div class="progress-fill" data-pct="55"></div></div></div>
-            <div class="pipeline-item"><div class="name">Kubernetes</div><div class="progress"><div class="progress-fill" data-pct="35"></div></div></div>
-            <div class="pipeline-item"><div class="name">CI/CD</div><div class="progress"><div class="progress-fill" data-pct="50"></div></div></div>
-            <div class="pipeline-item"><div class="name">Microservices</div><div class="progress"><div class="progress-fill" data-pct="45"></div></div></div>
-            <div class="pipeline-item"><div class="name">Cloud (AWS/GCP)</div><div class="progress"><div class="progress-fill" data-pct="40"></div></div></div>
-            <div class="pipeline-item"><div class="name">Kafka / RabbitMQ</div><div class="progress"><div class="progress-fill" data-pct="30"></div></div></div>
-            <div class="pipeline-item"><div class="name">Testing</div><div class="progress"><div class="progress-fill" data-pct="60"></div></div></div>
-          </div>
-        </div>
-
-        <div class="pipeline-section reveal-right" style="--delay: 0.4s">
-          <div class="pipeline-header">
-            <span class="pipeline-num">02 · IN PIPELINE</span>
-            <span class="pipeline-title">ML Foundations</span>
-            <span class="pipeline-line"></span>
-          </div>
-          <div class="pipeline-items">
-            <div class="pipeline-item"><div class="name">ML Fundamentals</div><div class="progress"><div class="progress-fill" data-pct="55"></div></div></div>
-            <div class="pipeline-item"><div class="name">Deep Learning (PyTorch)</div><div class="progress"><div class="progress-fill" data-pct="40"></div></div></div>
-            <div class="pipeline-item"><div class="name">TensorFlow</div><div class="progress"><div class="progress-fill" data-pct="30"></div></div></div>
-            <div class="pipeline-item"><div class="name">NLP & Transformers</div><div class="progress"><div class="progress-fill" data-pct="35"></div></div></div>
-          </div>
-        </div>
-
-        <div class="pipeline-section reveal-right" style="--delay: 0.5s">
-          <div class="pipeline-header">
-            <span class="pipeline-num">03 · IN PIPELINE</span>
-            <span class="pipeline-title">Applied AI Systems</span>
-            <span class="pipeline-line"></span>
-          </div>
-          <div class="pipeline-items">
-            <div class="pipeline-item"><div class="name">LLMs</div><div class="progress"><div class="progress-fill" data-pct="50"></div></div></div>
-            <div class="pipeline-item"><div class="name">LangChain / LlamaIndex</div><div class="progress"><div class="progress-fill" data-pct="45"></div></div></div>
-            <div class="pipeline-item"><div class="name">Vector Databases</div><div class="progress"><div class="progress-fill" data-pct="40"></div></div></div>
-            <div class="pipeline-item"><div class="name">RAG Pipelines</div><div class="progress"><div class="progress-fill" data-pct="35"></div></div></div>
-            <div class="pipeline-item"><div class="name">Prompt Engineering</div><div class="progress"><div class="progress-fill" data-pct="60"></div></div></div>
-            <div class="pipeline-item"><div class="name">MLOps</div><div class="progress"><div class="progress-fill" data-pct="25"></div></div></div>
-          </div>
-        </div>
+      <div class="metric-card reveal" style="--delay: 0.3s">
+        <div class="metric-label">Lines of Code</div>
+        <div class="metric-value">45<span class="unit">K+</span></div>
+        <div class="metric-delta up">▲ Python & Java</div>
+      </div>
+      <div class="metric-card reveal" style="--delay: 0.4s">
+        <div class="metric-label">Projects Shipped</div>
+        <div class="metric-value">18</div>
+        <div class="metric-delta neutral">◆ 3 Production Scale</div>
+      </div>
+      <div class="metric-card reveal" style="--delay: 0.5s">
+        <div class="metric-label">Active Certs</div>
+        <div class="metric-value">13</div>
+        <div class="metric-delta down">▼ 1 Associate Track</div>
       </div>
     </div>
   </div>
@@ -621,6 +569,7 @@
 <!-- ============ CONTACT ============ -->
 <section class="contact" id="contact">
   <div class="contact-inner">
+    <div class="section-label reveal" style="justify-content:center">Contact</div>
     <h2 class="contact-title reveal" style="--delay: 0.1s">
       Let's build something<br>
       <strong>that has to work.</strong>
@@ -740,7 +689,7 @@ const revealObserver = new IntersectionObserver((entries) => {
    ========================================================== */
 (function() {
   const links = document.querySelectorAll('.nav-link');
-  const sections = ['about', 'proof', 'trajectory', 'contact'].map(id => document.getElementById(id));
+  const sections = ['about', 'proof', 'stats', 'contact'].map(id => document.getElementById(id));
 
   const obs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -819,7 +768,7 @@ const revealObserver = new IntersectionObserver((entries) => {
               ty: y * sy,
               vx: 0, vy: 0,
               size: Math.random() * 1.4 + 0.4,
-              hue: 18 + Math.random() * 28,
+              hue: 0 + Math.random() * 15, 
               sat: 90 + Math.random() * 10,
               lig: 55 + Math.random() * 15,
               phase: Math.random() * Math.PI * 2,
@@ -895,7 +844,7 @@ const revealObserver = new IntersectionObserver((entries) => {
         const dd = Math.sqrt(ddx * ddx + ddy * ddy);
         if (dd < 45) {
           const alpha = (1 - dd / 45) * 0.25;
-          ctx.strokeStyle = `rgba(255, 140, 66, ${alpha})`;
+          ctx.strokeStyle = `rgba(255, 51, 51, ${alpha})`;
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
           ctx.lineTo(q.x, q.y);
@@ -908,7 +857,7 @@ const revealObserver = new IntersectionObserver((entries) => {
       const idx = Math.floor(Math.random() * particles.length);
       const p = particles[idx];
       if (p) {
-        ctx.fillStyle = 'rgba(255, 200, 100, 0.9)';
+        ctx.fillStyle = 'rgba(255, 200, 200, 0.9)';
         ctx.beginPath();
         ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
         ctx.fill();
@@ -936,13 +885,124 @@ const revealObserver = new IntersectionObserver((entries) => {
 })();
 
 /* ==========================================================
-   8. CERTIFICATIONS RENDER (with real-looking SVG icons)
+   6. TERMINAL SIMULATION
+   ========================================================== */
+(function() {
+  const body = document.getElementById('terminalBody');
+  if (!body) return;
+
+  const lines = [
+    { type: 'cmd', prompt: 'techytcm@fedora', path: ':~$', cmd: 'fastapi run prod --port 8080' },
+    { type: 'info', text: 'INFO:     Uvicorn running on http://0.0.0.0:8080' },
+    { type: 'comment', text: '# server online' },
+    { type: 'info', text: 'INFO:     Application startup complete.' },
+    { type: 'blank' },
+    { type: 'cmd', prompt: 'techytcm@fedora', path: ':~$', cmd: 'curl -s localhost:8080/api/v1/health' },
+    { type: 'json', data: [
+      { brace: '{' },
+      { key: '"status"', val: '"healthy"', comma: ',' },
+      { key: '"latency_ms"', val: '7', comma: ',' },
+      { key: '"db"', val: '"ok"' },
+      { brace: '}' }
+    ]},
+    { type: 'blank' },
+    { type: 'cmd', prompt: 'techytcm@fedora', path: ':~$', cmd: 'echo "Monitoring SLOs..."' },
+    { type: 'comment', text: '# streaming metrics to cockpit' },
+    { type: 'blank' }
+  ];
+
+  let lineIdx = 0;
+
+  function typeNext() {
+    if (lineIdx >= lines.length) {
+      setTimeout(() => {
+        body.innerHTML = '';
+        lineIdx = 0;
+        typeNext();
+      }, 3000);
+      return;
+    }
+
+    const line = lines[lineIdx];
+
+    if (line.type === 'blank') {
+      body.appendChild(document.createElement('br'));
+      lineIdx++;
+      setTimeout(typeNext, 150);
+      return;
+    }
+
+    if (line.type === 'json') {
+      line.data.forEach(d => {
+        const div = document.createElement('div');
+        div.style.paddingLeft = '1rem';
+        let html = '';
+        if (d.brace) html = `<span class="term-brace">${d.brace}</span>`;
+        else {
+          html = `  <span class="term-key">${d.key}</span><span class="term-brace">: </span><span class="${typeof d.val === 'string' && d.val.startsWith('"') ? 'term-str' : 'term-num'}">${d.val}</span>${d.comma ? '<span class="term-brace">,</span>' : ''}`;
+        }
+        div.innerHTML = html;
+        body.appendChild(div);
+      });
+      lineIdx++;
+      setTimeout(typeNext, 400);
+      return;
+    }
+
+    const div = document.createElement('div');
+    div.className = 'term-line';
+
+    if (line.type === 'cmd') {
+      const prompt = document.createElement('span');
+      prompt.className = 'term-prompt';
+      prompt.textContent = line.prompt;
+      const path = document.createElement('span');
+      path.className = 'term-path';
+      path.textContent = ' ' + line.path + ' ';
+      const cmd = document.createElement('span');
+      cmd.className = 'term-cmd';
+      cmd.textContent = line.cmd;
+      div.appendChild(prompt);
+      div.appendChild(path);
+      div.appendChild(cmd);
+      body.appendChild(div);
+    } else if (line.type === 'info') {
+      const span = document.createElement('span');
+      span.className = 'term-info';
+      span.textContent = line.text;
+      div.appendChild(span);
+      body.appendChild(div);
+    } else if (line.type === 'comment') {
+      const span = document.createElement('span');
+      span.className = 'term-comment';
+      span.textContent = line.text;
+      div.appendChild(span);
+      body.appendChild(div);
+    }
+
+    body.scrollTop = body.scrollHeight;
+    lineIdx++;
+    const delay = (line.type === 'cmd') ? 60 + Math.random() * 60 : 200;
+    setTimeout(typeNext, delay);
+  }
+
+  const termObs = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting && lineIdx === 0) {
+      typeNext();
+      termObs.disconnect();
+    }
+  });
+  termObs.observe(body);
+})();
+
+
+/* ==========================================================
+   8. CERTIFICATIONS RENDER
    ========================================================== */
 (function() {
   const grid = document.getElementById('certsGrid');
   if (!grid) return;
 
-  // Real SVG icons map
   const icons = {
     database: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>',
     code: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
@@ -999,24 +1059,7 @@ document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right')
 });
 
 /* ==========================================================
-   10. ROADMAP PROGRESS BARS
-   ========================================================== */
-const progressObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const fill = entry.target;
-      const pct = fill.dataset.pct;
-      fill.style.width = pct + '%';
-    } else {
-      entry.target.style.width = '0%';
-    }
-  });
-}, { threshold: 0.3 });
-
-document.querySelectorAll('.progress-fill').forEach(el => progressObserver.observe(el));
-
-/* ==========================================================
-   11. MAGNETIC BUTTONS
+   10. MAGNETIC BUTTONS
    ========================================================== */
 (function() {
   const magnets = document.querySelectorAll('.btn-primary, .nav-cta');
@@ -1034,7 +1077,7 @@ document.querySelectorAll('.progress-fill').forEach(el => progressObserver.obser
 })();
 
 /* ==========================================================
-   12. HERO PARALLAX
+   11. HERO PARALLAX
    ========================================================== */
 (function() {
   const glow1 = document.querySelector('.hero-glow-1');
