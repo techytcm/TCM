@@ -32,27 +32,22 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
   
+  /* Added overscroll-behavior to prevent mobile rubber-banding white flash */
   html { 
     scroll-behavior: smooth; 
     -webkit-text-size-adjust: 100%;
     overflow-x: hidden;
+    overscroll-behavior-y: none;
+    background-color: #000000;
   }
 
-  /* Moved background to ::before to fix mobile scroll jitter */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: -1;
+  /* Moved background directly to body to fix mobile scroll jitter */
+  body {
     background-color: #000000;
     background-image: 
       radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255, 26, 26, 0.15) 0%, transparent 50%),
       radial-gradient(ellipse 60% 40% at 80% 120%, rgba(255, 26, 26, 0.08) 0%, transparent 50%);
     background-attachment: scroll;
-  }
-
-  body {
-    background: transparent;
     color: var(--text);
     font-family: 'Slabo 27px', serif;
     font-weight: 400;
@@ -64,6 +59,7 @@
     width: 100%;
     position: relative;
     min-height: 100vh;
+    -webkit-tap-highlight-color: transparent;
   }
   
   body.cursor-ready { cursor: none; }
@@ -174,7 +170,16 @@
   .section-title strong { font-weight: 400; font-style: italic; color: var(--accent); }
 
   /* === REDUCED HERO PADDING TO FIT WITH NAVBAR === */
-  .hero { padding: 5rem 1rem 2rem; min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; }
+  /* Added 100svh to fix mobile address bar jump glitch */
+  .hero { 
+    padding: 5rem 1rem 2rem; 
+    min-height: 100vh; 
+    min-height: 100svh; 
+    display: flex; 
+    align-items: center; 
+    position: relative; 
+    overflow: hidden; 
+  }
   @media (min-width: 768px) { .hero { padding: 6rem 2rem 2rem; } }
 
   .hero-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%); filter: blur(80px); pointer-events: none; opacity: 0.6; will-change: transform; transform: translateZ(0); }
@@ -210,7 +215,6 @@
     width: 100%; height: 100%; 
     animation: rotate 30s linear infinite; 
     will-change: transform; 
-    /* Hardware acceleration fixes for jitter */
     transform: translateZ(0);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
@@ -393,11 +397,24 @@
     .marquee-track { animation: none; }
   }
 
+  /* =================== MOBILE PERFORMANCE OPTIMIZATIONS =================== */
   @media (max-width: 768px) {
-    .nav, .about-body, .info-cell, .metric-card, .cert-stat, .cert-card, .contact-link {
-      backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(12, 12, 18, 0.9);
+    /* Aggressively disable backdrop-filters to prevent white flashes and GPU stuttering on mobile */
+    .nav, .about-body, .info-cell, .metric-card, .cert-stat, .cert-card, .contact-link,
+    .cmd-overlay, .cmd-container {
+      backdrop-filter: none !important; 
+      -webkit-backdrop-filter: none !important;
     }
-    /* Remove blur on mobile to save GPU and prevent jitter */
+    /* Fallback high-opacity solid backgrounds for the glass effect */
+    .nav, .about-body, .info-cell, .metric-card, .cert-stat, .cert-card, .contact-link {
+      background: rgba(10, 10, 15, 0.98) !important;
+    }
+    .cmd-overlay { 
+      background: rgba(0, 0, 0, 0.95) !important; 
+    }
+    .cmd-container { 
+      background: rgba(12, 12, 18, 0.98) !important; 
+    }
     .hero-glow { filter: blur(60px); opacity: 0.4; }
   }
 
