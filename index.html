@@ -41,10 +41,6 @@
     --glass-bg: rgba(255, 255, 255, 0.65);
     --glass-border: rgba(255, 255, 255, 0.8);
     --glass-shadow: 0 8px 32px rgba(0, 50, 100, 0.1);
-    --term-bg: #ffffff;
-    --term-header-bg: #f8f9fa;
-    --term-info: #6c757d;
-    --term-comment: #adb5bd;
     --cursor-ring: rgba(0, 0, 0, 0.5);
     --grid-line: rgba(0, 123, 255, 0.05);
   }
@@ -70,10 +66,6 @@
     --glass-bg: rgba(15, 22, 38, 0.65);
     --glass-border: rgba(255, 255, 255, 0.08);
     --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-    --term-bg: #050a14;
-    --term-header-bg: #0f1626;
-    --term-info: #6c757d;
-    --term-comment: #5e7395;
     --cursor-ring: rgba(255, 255, 255, 0.5);
     --grid-line: rgba(77, 171, 247, 0.05);
   }
@@ -314,21 +306,6 @@
   .info-cell .label { font-family: 'Cinzel', serif; font-size: 0.65rem; color: var(--text-3); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; }
   .info-cell .value { color: var(--text); font-size: 0.95rem; font-weight: 500; font-family: 'Slabo 27px', serif; }
   .info-cell .value .accent { color: var(--accent); }
-
-  .terminal { background: var(--term-bg); border: 1px solid var(--border-bright); border-radius: 16px; overflow: hidden; box-shadow: 0 30px 80px -30px rgba(0,50,100,0.2), 0 0 0 1px var(--accent-glow); }
-  .terminal-header { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1.25rem; background: var(--term-header-bg); border-bottom: 1px solid var(--border); }
-  .terminal-dots { display: flex; gap: 0.4rem; }
-  .terminal-dot { width: 11px; height: 11px; border-radius: 50%; }
-  .terminal-dot.r { background: #ff5f56; } .terminal-dot.y { background: #ffbd2e; } .terminal-dot.g { background: #27c93f; }
-  .terminal-title { font-family: 'Cinzel', serif; font-size: 0.7rem; color: var(--text-3); margin-left: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-  .terminal-body { padding: 1.5rem; font-family: 'Cinzel', serif; font-size: 0.7rem; line-height: 1.8; height: 350px; overflow: hidden; position: relative; }
-  @media (min-width: 768px) { .terminal-body { font-size: 0.75rem; height: 400px; } }
-
-  .term-line { display: flex; gap: 0.5rem; flex-wrap: wrap; word-break: break-word; }
-  .term-prompt { color: var(--accent); } .term-path { color: var(--mint); } .term-cmd { color: var(--text); }
-  .term-info { color: var(--term-info); } .term-comment { color: var(--term-comment); }
-  .term-key { color: var(--accent-2); } .term-str { color: var(--mint); } .term-num { color: var(--amber); } .term-brace { color: var(--term-comment); }
 
   /* =================== GLASSMORPHISM METRICS =================== */
   .metrics-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 1.5rem; }
@@ -1244,119 +1221,7 @@ const revealObserver = new IntersectionObserver((entries) => {
 })();
 
 /* ==========================================================
-   5. TERMINAL SIMULATION
-   ========================================================== */
-(function() {
-  const body = document.getElementById('terminalBody');
-  if (!body) return;
-
-  const lines = [
-    { type: 'cmd', prompt: 'techytcm@fedora', path: ':~$', cmd: 'fastapi run prod --port 8080' },
-    { type: 'info', text: 'INFO:     Uvicorn running on http://0.0.0.0:8080' },
-    { type: 'comment', text: '# server online' },
-    { type: 'info', text: 'INFO:     Application startup complete.' },
-    { type: 'blank' },
-    { type: 'cmd', prompt: 'techytcm@fedora', path: ':~$', cmd: 'curl -s localhost:8080/api/v1/health' },
-    { type: 'json', data: [
-      { brace: '{' },
-      { key: '"status"', val: '"healthy"', comma: ',' },
-      { key: '"latency_ms"', val: '7', comma: ',' },
-      { key: '"db"', val: '"ok"' },
-      { brace: '}' }
-    ]},
-    { type: 'blank' },
-    { type: 'cmd', prompt: 'techytcm@fedora', path: ':~$', cmd: 'echo "Monitoring SLOs..."' },
-    { type: 'comment', text: '# streaming metrics to cockpit' },
-    { type: 'blank' }
-  ];
-
-  let lineIdx = 0;
-
-  function typeNext() {
-    if (lineIdx >= lines.length) {
-      setTimeout(() => {
-        body.innerHTML = '';
-        lineIdx = 0;
-        typeNext();
-      }, 3000);
-      return;
-    }
-
-    const line = lines[lineIdx];
-
-    if (line.type === 'blank') {
-      body.appendChild(document.createElement('br'));
-      lineIdx++;
-      setTimeout(typeNext, 150);
-      return;
-    }
-
-    if (line.type === 'json') {
-      line.data.forEach(d => {
-        const div = document.createElement('div');
-        div.style.paddingLeft = '1rem';
-        let html = '';
-        if (d.brace) html = `<span class="term-brace">${d.brace}</span>`;
-        else {
-          html = `  <span class="term-key">${d.key}</span><span class="term-brace">: </span><span class="${typeof d.val === 'string' && d.val.startsWith('"') ? 'term-str' : 'term-num'}">${d.val}</span>${d.comma ? '<span class="term-brace">,</span>' : ''}`;
-        }
-        div.innerHTML = html;
-        body.appendChild(div);
-      });
-      lineIdx++;
-      setTimeout(typeNext, 400);
-      return;
-    }
-
-    const div = document.createElement('div');
-    div.className = 'term-line';
-
-    if (line.type === 'cmd') {
-      const prompt = document.createElement('span');
-      prompt.className = 'term-prompt';
-      prompt.textContent = line.prompt;
-      const path = document.createElement('span');
-      path.className = 'term-path';
-      path.textContent = ' ' + line.path + ' ';
-      const cmd = document.createElement('span');
-      cmd.className = 'term-cmd';
-      cmd.textContent = line.cmd;
-      div.appendChild(prompt);
-      div.appendChild(path);
-      div.appendChild(cmd);
-      body.appendChild(div);
-    } else if (line.type === 'info') {
-      const span = document.createElement('span');
-      span.className = 'term-info';
-      span.textContent = line.text;
-      div.appendChild(span);
-      body.appendChild(div);
-    } else if (line.type === 'comment') {
-      const span = document.createElement('span');
-      span.className = 'term-comment';
-      span.textContent = line.text;
-      div.appendChild(span);
-      body.appendChild(div);
-    }
-
-    body.scrollTop = body.scrollHeight;
-    lineIdx++;
-    const delay = (line.type === 'cmd') ? 60 + Math.random() * 60 : 200;
-    setTimeout(typeNext, delay);
-  }
-
-  const termObs = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting && lineIdx === 0) {
-      typeNext();
-      termObs.disconnect();
-    }
-  });
-  termObs.observe(body);
-})();
-
-
-/* ==========================================================
-   6. CERTIFICATIONS RENDER
+   5. CERTIFICATIONS RENDER
    ========================================================== */
 (function() {
   const grid = document.getElementById('certsGrid');
@@ -1416,14 +1281,14 @@ const revealObserver = new IntersectionObserver((entries) => {
 })();
 
 /* ==========================================================
-   7. OBSERVE INITIAL REVEAL ELEMENTS
+   6. OBSERVE INITIAL REVEAL ELEMENTS
    ========================================================== */
 document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right').forEach(el => {
   revealObserver.observe(el);
 });
 
 /* ==========================================================
-   8. MAGNETIC BUTTONS (Disabled on mobile/touch)
+   7. MAGNETIC BUTTONS (Disabled on mobile/touch)
    ========================================================== */
 (function() {
   if (!window.matchMedia("(pointer: fine)").matches) return;
@@ -1443,7 +1308,7 @@ document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right')
 })();
 
 /* ==========================================================
-   9. HERO PARALLAX (Throttled via requestAnimationFrame, Disabled on mobile)
+   8. HERO PARALLAX (Throttled via requestAnimationFrame, Disabled on mobile)
    ========================================================== */
 (function() {
   if (!window.matchMedia("(pointer: fine)").matches) return;
